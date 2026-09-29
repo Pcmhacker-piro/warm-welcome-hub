@@ -1,24 +1,327 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Prakash Chand Meena — Full-Stack Engineer & Open Source Contributor" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Prakash Chand Meena: full-stack engineer, GSSoC 2026 top-30 contributor, builder of Verdiqy and Novix UI.",
+      },
+      { property: "og:title", content: "Prakash Chand Meena — Portfolio" },
+      {
+        property: "og:description",
+        content: "Full-stack engineer, open source contributor and competitive programmer from IIIT Dharwad.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const socials = [
+  { label: "GitHub", href: "https://github.com/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/" },
+  { label: "X", href: "https://x.com/" },
+  { label: "Email", href: "mailto:pcmeena511@gmail.com" },
+];
+
+const stats = [
+  { v: "28th", l: "GSSoC 2026 global rank" },
+  { v: "600", l: "PRs merged" },
+  { v: "1700+", l: "LeetCode rating" },
+  { v: "3★", l: "CodeChef" },
+];
+
+const experiences = [
+  {
+    org: "InAmigos Foundation (IAF)",
+    role: "AI Web Development Intern",
+    date: "Jul 2026 – Aug 2026",
+    place: "Remote",
+    metrics: [
+      { v: "6", l: "UX flows" },
+      { v: "4", l: "Sections shipped" },
+    ],
+    points: [
+      "Designed a Figma prototype for the NGO website, mapping UX flows for donation, volunteer registration, impact showcase, testimonials, campaigns, and events.",
+      "Launched a 4-section website (Home, About, Services, Contact) using AI-assisted generation tools on a real use case.",
+    ],
+    tags: ["Figma", "UX", "AI Tools", "Web"],
+  },
+  {
+    org: "GirlScript Summer of Code 2026",
+    role: "Open Source Contributor",
+    date: "2026",
+    place: "Remote",
+    metrics: [
+      { v: "#28", l: "of 43,000+" },
+      { v: "600", l: "PRs merged" },
+      { v: "1,200+", l: "Issues resolved" },
+      { v: "49", l: "Repositories" },
+    ],
+    points: [
+      "Increased feature coverage by 30% and reduced bug backlog by 40% across contributed projects.",
+      "Also placed #286 worldwide (Tier-1 Elite) at ECSoC 2026 with a leaderboard score of 620.",
+    ],
+    tags: ["Open Source", "Git", "Collaboration"],
+  },
+];
+
+const projects = [
+  {
+    name: "Verdiqy",
+    tagline: "Unified competitive programming training platform",
+    stack: ["React 19", "TypeScript", "TanStack Start", "PostgreSQL", "Gemini API"],
+    points: [
+      "Sheet builder for custom practice sets from a 12,000+ problem bank, plus Codeforces profile comparison.",
+      "Contest tracker across Codeforces, LeetCode and CodeChef with an analytics dashboard.",
+      "Hint-only AI Mentor for spoiler-free guidance and a ranked solution-video pipeline.",
+    ],
+  },
+  {
+    name: "Novix UI",
+    tagline: "Open-source React component library",
+    stack: ["TypeScript", "Tailwind CSS v4", "Radix UI", "Motion"],
+    points: [
+      "Published @novix-ui/react with 500+ accessible components in strict TypeScript.",
+      "Token-driven OKLCH theming with instant dark mode and zero hardcoded colors.",
+      "Scaffolding CLI (@novix-ui/cli) and a spring-physics motion system, fully tree-shakeable.",
+    ],
+  },
+];
+
+const contributions = [
+  { repo: "processing/p5.js", pr: "#9170", text: "Fixed negative divisor handling in p5.Vector.rem()." },
+  { repo: "processing/p5.js", pr: "#9186", text: "Stopped shuffle() from mutating typed arrays; all 26 tests passing." },
+  { repo: "processing/p5.js", pr: "#9192", text: "Automated TypeScript declaration generation for npm and CI releases." },
+  { repo: "vercel/turborepo", pr: "#14060", text: "Fixed stale cache hits between staging and production builds in the hashing engine." },
+];
+
+const skills: Record<string, string[]> = {
+  Languages: ["Java", "C++", "Python", "JavaScript", "TypeScript", "SQL"],
+  Frontend: ["React.js", "Next.js", "Tailwind CSS", "Recoil", "HTML5", "CSS3"],
+  Backend: ["Node.js", "Express.js", "REST", "Prisma", "Zod", "Socket.IO", "NextAuth"],
+  Databases: ["PostgreSQL", "MongoDB", "Firestore"],
+  "Cloud & DevOps": ["Docker", "Kubernetes", "AWS", "Nginx", "GitHub Actions"],
+  Architecture: ["Turborepo", "Microservices", "Pub/Sub", "WebRTC", "Load Balancing"],
+};
+
+function Clock() {
+  const [t, setT] = useState("");
+  useEffect(() => {
+    const tick = () =>
+      setT(
+        new Date().toLocaleTimeString("en-IN", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+          timeZone: "Asia/Kolkata",
+        }),
+      );
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return <span className="font-mono tabular-nums">{t || "--:--:--"} IST</span>;
+}
+
+function SectionTitle({ id, children }: { id: string; children: string }) {
+  return (
+    <h2 id={id} className="mb-6 scroll-mt-24 font-mono text-xs uppercase tracking-[0.25em] text-muted-foreground">
+      {children}
+    </h2>
+  );
+}
+
+function Tag({ children }: { children: string }) {
+  return (
+    <span className="rounded-md border border-border bg-muted px-2 py-0.5 font-mono text-[11px] text-muted-foreground">
+      {children}
+    </span>
+  );
+}
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
+        <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-3 text-sm">
+          <span className="font-mono font-medium">pcmeena</span>
+          <nav className="flex gap-5 text-muted-foreground">
+            <a href="#experience" className="hover:text-foreground">Experience</a>
+            <a href="#projects" className="hover:text-foreground">Projects</a>
+            <a href="#skills" className="hover:text-foreground">Skills</a>
+            <a href="#contact" className="hover:text-foreground">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-3xl px-6">
+        <section className="py-16">
+          <div className="mb-8 flex items-center justify-between text-xs text-muted-foreground">
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-primary" /> Open to internships
+            </span>
+            <Clock />
+          </div>
+          <div className="flex items-center gap-5">
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-border bg-card font-mono text-2xl font-semibold text-primary">
+              PM
+            </div>
+            <div>
+              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Prakash Chand Meena</h1>
+              <p className="mt-1 text-muted-foreground">Full-Stack Engineer · Open Source · Competitive Programmer</p>
+            </div>
+          </div>
+          <p className="mt-8 text-lg leading-relaxed">
+            I build, break, and ship things — from component libraries to training platforms.
+          </p>
+          <ul className="mt-4 space-y-2 text-muted-foreground">
+            <li>• CSE undergrad at IIIT Dharwad, Karnataka.</li>
+            <li>• Ranked 28th globally in GSSoC 2026 among 43,000+ contributors.</li>
+            <li>• Currently building Verdiqy and Novix UI.</li>
+          </ul>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="mailto:pcmeena511@gmail.com" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
+              Send an email
+            </a>
+            {socials.slice(0, 3).map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="rounded-lg border border-border px-4 py-2 text-sm hover:bg-accent">
+                {s.label}
+              </a>
+            ))}
+          </div>
+          <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
+            {stats.map((s) => (
+              <div key={s.l} className="bg-card p-4">
+                <div className="text-2xl font-semibold">{s.v}</div>
+                <div className="mt-1 text-xs text-muted-foreground">{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-12">
+          <SectionTitle id="experience">Experience</SectionTitle>
+          <div className="space-y-6">
+            {experiences.map((e) => (
+              <article key={e.org} className="rounded-2xl border border-border bg-card p-6">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <h3 className="font-semibold">{e.org}</h3>
+                    <p className="text-sm text-muted-foreground">{e.role}</p>
+                  </div>
+                  <div className="text-right text-xs text-muted-foreground">
+                    <div>{e.date}</div>
+                    <div>{e.place}</div>
+                  </div>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-6">
+                  {e.metrics.map((m) => (
+                    <div key={m.l}>
+                      <div className="text-xl font-semibold text-primary">{m.v}</div>
+                      <div className="text-xs text-muted-foreground">{m.l}</div>
+                    </div>
+                  ))}
+                </div>
+                <ul className="mt-5 space-y-2 text-sm leading-relaxed text-muted-foreground">
+                  {e.points.map((p) => (
+                    <li key={p}>• {p}</li>
+                  ))}
+                </ul>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {e.tags.map((t) => (
+                    <Tag key={t}>{t}</Tag>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-12">
+          <SectionTitle id="projects">Projects</SectionTitle>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {projects.map((p) => (
+              <article key={p.name} className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50">
+                <h3 className="text-lg font-semibold">{p.name}</h3>
+                <p className="text-sm text-muted-foreground">{p.tagline}</p>
+                <ul className="mt-4 flex-1 space-y-2 text-sm leading-relaxed text-muted-foreground">
+                  {p.points.map((pt) => (
+                    <li key={pt}>• {pt}</li>
+                  ))}
+                </ul>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {p.stack.map((s) => (
+                    <Tag key={s}>{s}</Tag>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-12">
+          <SectionTitle id="open-source">Open source contributions</SectionTitle>
+          <div className="divide-y divide-border rounded-2xl border border-border bg-card">
+            {contributions.map((c) => (
+              <div key={c.pr} className="flex gap-4 p-4 text-sm">
+                <span className="shrink-0 font-mono text-primary">{c.pr}</span>
+                <div>
+                  <div className="font-mono text-xs text-muted-foreground">{c.repo}</div>
+                  <div className="mt-1">{c.text}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-12">
+          <SectionTitle id="skills">Skills</SectionTitle>
+          <div className="space-y-4">
+            {Object.entries(skills).map(([k, v]) => (
+              <div key={k} className="grid gap-2 sm:grid-cols-[140px_1fr]">
+                <div className="text-sm text-muted-foreground">{k}</div>
+                <div className="flex flex-wrap gap-2">
+                  {v.map((s) => (
+                    <Tag key={s}>{s}</Tag>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-12">
+          <SectionTitle id="education">Education</SectionTitle>
+          <div className="rounded-2xl border border-border bg-card p-6">
+            <h3 className="font-semibold">IIIT Dharwad</h3>
+            <p className="text-sm text-muted-foreground">B.Tech in Computer Science & Engineering · CGPA 7.23 · Expected 2028</p>
+          </div>
+        </section>
+
+        <section className="py-16">
+          <SectionTitle id="contact">Contact</SectionTitle>
+          <h3 className="text-2xl font-semibold">Let's build something together.</h3>
+          <p className="mt-2 text-muted-foreground">Dharwad, Karnataka, India · pcmeena511@gmail.com</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="rounded-lg border border-border px-4 py-2 text-sm hover:bg-accent">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
+        © 2026 Prakash Chand Meena
+      </footer>
     </div>
   );
 }
