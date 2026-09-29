@@ -4,7 +4,8 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { Reveal } from "@/components/Reveal";
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import verdiqyImg from "@/assets/verdiqy.jpg";
-import novixImg from "@/assets/novix.jpg";
+import novixAsset from "@/assets/novix-screenshot.png.asset.json";
+const novixImg = novixAsset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
