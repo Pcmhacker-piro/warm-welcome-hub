@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Reveal } from "@/components/Reveal";
+import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import verdiqyImg from "@/assets/verdiqy.jpg";
 import novixImg from "@/assets/novix.jpg";
 
@@ -27,10 +28,10 @@ export const Route = createFileRoute("/")({
 });
 
 const socials = [
-  { label: "GitHub", href: "https://github.com/" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/" },
-  { label: "X", href: "https://x.com/" },
-  { label: "Email", href: "mailto:pcmeena511@gmail.com" },
+  { label: "GitHub", href: "https://github.com/", Icon: Github },
+  { label: "LinkedIn", href: "https://www.linkedin.com/", Icon: Linkedin },
+  { label: "X", href: "https://x.com/", Icon: Twitter },
+  { label: "Email", href: "mailto:pcmeena511@gmail.com", Icon: Mail },
 ];
 
 const stats = [
@@ -198,7 +199,8 @@ function Index() {
               Send an email
             </a>
             {socials.slice(0, 3).map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="rounded-lg border border-border px-4 py-2 text-sm hover:bg-accent">
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-accent">
+                <s.Icon className="h-4 w-4 transition-transform group-hover:scale-110 group-hover:text-primary" />
                 {s.label}
               </a>
             ))}
@@ -327,7 +329,8 @@ function Index() {
           <p className="mt-2 text-muted-foreground">Dharwad, Karnataka, India · pcmeena511@gmail.com</p>
           <div className="mt-6 flex flex-wrap gap-3">
             {socials.map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="rounded-lg border border-border px-4 py-2 text-sm hover:bg-accent">
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-accent">
+                <s.Icon className="h-4 w-4 transition-transform group-hover:scale-110 group-hover:text-primary" />
                 {s.label}
               </a>
             ))}
