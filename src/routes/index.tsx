@@ -1,5 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { Reveal } from "@/components/Reveal";
+import verdiqyImg from "@/assets/verdiqy.jpg";
+import novixImg from "@/assets/novix.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -74,6 +78,7 @@ const experiences = [
 const projects = [
   {
     name: "Verdiqy",
+    img: verdiqyImg,
     tagline: "Unified competitive programming training platform",
     stack: ["React 19", "TypeScript", "TanStack Start", "PostgreSQL", "Gemini API"],
     points: [
@@ -84,6 +89,7 @@ const projects = [
   },
   {
     name: "Novix UI",
+    img: novixImg,
     tagline: "Open-source React component library",
     stack: ["TypeScript", "Tailwind CSS v4", "Radix UI", "Motion"],
     points: [
@@ -152,17 +158,18 @@ function Index() {
       <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-3 text-sm">
           <span className="font-mono font-medium">pcmeena</span>
-          <nav className="flex gap-5 text-muted-foreground">
+          <nav className="hidden gap-5 sm:flex text-muted-foreground">
             <a href="#experience" className="hover:text-foreground">Experience</a>
             <a href="#projects" className="hover:text-foreground">Projects</a>
             <a href="#skills" className="hover:text-foreground">Skills</a>
             <a href="#contact" className="hover:text-foreground">Contact</a>
           </nav>
+          <ThemeToggle />
         </div>
       </header>
 
       <main className="mx-auto max-w-3xl px-6">
-        <section className="py-16">
+        <section className="animate-float-in py-16">
           <div className="mb-8 flex items-center justify-between text-xs text-muted-foreground">
             <span className="flex items-center gap-2">
               <span className="h-2 w-2 animate-pulse rounded-full bg-primary" /> Open to internships
@@ -209,8 +216,9 @@ function Index() {
         <section className="py-12">
           <SectionTitle id="experience">Experience</SectionTitle>
           <div className="space-y-6">
-            {experiences.map((e) => (
-              <article key={e.org} className="rounded-2xl border border-border bg-card p-6">
+            {experiences.map((e, i) => (
+              <Reveal key={e.org} delay={i * 100}>
+              <article className="rounded-2xl border border-border bg-card p-6">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
                     <h3 className="font-semibold">{e.org}</h3>
@@ -240,6 +248,7 @@ function Index() {
                   ))}
                 </div>
               </article>
+              </Reveal>
             ))}
           </div>
         </section>
@@ -247,8 +256,13 @@ function Index() {
         <section className="py-12">
           <SectionTitle id="projects">Projects</SectionTitle>
           <div className="grid gap-6 sm:grid-cols-2">
-            {projects.map((p) => (
-              <article key={p.name} className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-primary/50">
+            {projects.map((p, i) => (
+              <Reveal key={p.name} delay={i * 120}>
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl">
+                <div className="overflow-hidden border-b border-border">
+                  <img src={p.img} alt={`${p.name} preview`} width={1280} height={720} loading="lazy" className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
                 <h3 className="text-lg font-semibold">{p.name}</h3>
                 <p className="text-sm text-muted-foreground">{p.tagline}</p>
                 <ul className="mt-4 flex-1 space-y-2 text-sm leading-relaxed text-muted-foreground">
@@ -261,7 +275,9 @@ function Index() {
                     <Tag key={s}>{s}</Tag>
                   ))}
                 </div>
+                </div>
               </article>
+              </Reveal>
             ))}
           </div>
         </section>

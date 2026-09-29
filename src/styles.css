@@ -167,3 +167,20 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+:root:not(.dark) {
+  --primary: oklch(0.55 0.15 150);
+  --primary-foreground: oklch(0.99 0 0);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@keyframes float-in {
+  from { opacity: 0; transform: translateY(12px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.animate-float-in { animation: float-in 0.8s cubic-bezier(.2,.7,.2,1) both; }
