@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Reveal } from "@/components/Reveal";
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
-import verdiqyImg from "@/assets/verdiqy.jpg";
+import verdiqyAsset from "@/assets/verdiqy-screenshot.png.asset.json";
+const verdiqyImg = verdiqyAsset.url;
 import novixAsset from "@/assets/novix-screenshot.png.asset.json";
 const novixImg = novixAsset.url;
 
