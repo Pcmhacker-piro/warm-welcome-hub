@@ -46,10 +46,38 @@ const stats = [
 
 const experiences = [
   {
+    org: "Google",
+    role: "Google Student Ambassador 2026",
+    date: "Apr 2026 – Present",
+    place: "India · Remote",
+    mark: "G",
+    metrics: [],
+    points: [],
+    tags: ["Public Speaking", "Community Building"],
+  },
+  {
+    org: "GirlScript Summer of Code",
+    role: "Open Source Contributor",
+    date: "Apr 2026 – Sep 2026",
+    place: "India · Remote",
+    mark: "GS",
+    metrics: [
+      { v: "#28", l: "of 43,000+" },
+      { v: "600", l: "PRs merged" },
+      { v: "1,200+", l: "Issues resolved" },
+      { v: "49", l: "Repositories" },
+    ],
+    points: [
+      "Increased feature coverage by 30% and reduced bug backlog by 40% across contributed projects.",
+    ],
+    tags: ["Open Source", "Git", "Software Development"],
+  },
+  {
     org: "InAmigos Foundation (IAF)",
     role: "AI Web Development Intern",
     date: "Jul 2026 – Aug 2026",
     place: "Remote",
+    mark: "IA",
     metrics: [
       { v: "6", l: "UX flows" },
       { v: "4", l: "Sections shipped" },
@@ -61,21 +89,19 @@ const experiences = [
     tags: ["Figma", "UX", "AI Tools", "Web"],
   },
   {
-    org: "GirlScript Summer of Code 2026",
+    org: "Elite Coders",
     role: "Open Source Contributor",
-    date: "2026",
-    place: "Remote",
+    date: "Jun 2026 – Aug 2026",
+    place: "India · Remote",
+    mark: "EC",
     metrics: [
-      { v: "#28", l: "of 43,000+" },
-      { v: "600", l: "PRs merged" },
-      { v: "1,200+", l: "Issues resolved" },
-      { v: "49", l: "Repositories" },
+      { v: "#286", l: "Worldwide rank" },
+      { v: "620", l: "Leaderboard score" },
     ],
     points: [
-      "Increased feature coverage by 30% and reduced bug backlog by 40% across contributed projects.",
-      "Also placed #286 worldwide (Tier-1 Elite) at ECSoC 2026 with a leaderboard score of 620.",
+      "Placed in Tier-1 Elite at ECSoC 2026.",
     ],
-    tags: ["Open Source", "Git", "Collaboration"],
+    tags: ["Open Source", "Java", "Back-End Web Development"],
   },
 ];
 
@@ -221,20 +247,26 @@ function Index() {
 
         <section className="py-12">
           <SectionTitle id="experience">Experience</SectionTitle>
-          <div className="space-y-6">
+          <div>
             {experiences.map((e, i) => (
               <Reveal key={e.org} delay={i * 100}>
-              <article className="rounded-2xl border border-border bg-card p-6">
-                <div className="flex flex-wrap items-start justify-between gap-2">
+              <article className="group relative grid grid-cols-[40px_minmax(0,1fr)] gap-4 pb-8 sm:grid-cols-[44px_minmax(0,1fr)] sm:gap-5" aria-label={`${e.role} at ${e.org}`}>
+                <div className="relative">
+                  <div aria-hidden="true" className="relative z-10 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-muted font-mono text-sm font-semibold transition-colors duration-300 group-hover:bg-accent sm:h-11 sm:w-11">{e.mark}</div>
+                  {i < experiences.length - 1 && <div aria-hidden="true" className="absolute bottom-0 left-1/2 top-12 w-px bg-border" />}
+                </div>
+                <div className="min-w-0 border-b border-border pb-8">
+                <div className="flex flex-col items-start justify-between gap-2 sm:flex-row">
                   <div>
-                    <h3 className="font-semibold">{e.org}</h3>
-                    <p className="text-sm text-muted-foreground">{e.role}</p>
+                    <h3 className="text-sm font-semibold sm:text-base">{e.role}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{e.org} · Internship</p>
                   </div>
-                  <div className="text-right text-xs text-muted-foreground">
+                  <div className="shrink-0 text-xs leading-relaxed text-muted-foreground sm:text-right">
                     <div>{e.date}</div>
                     <div>{e.place}</div>
                   </div>
                 </div>
+                {e.metrics.length > 0 && (
                 <div className="mt-5 flex flex-wrap gap-6">
                   {e.metrics.map((m) => (
                     <div key={m.l}>
@@ -243,15 +275,19 @@ function Index() {
                     </div>
                   ))}
                 </div>
+                )}
+                {e.points.length > 0 && (
                 <ul className="mt-5 space-y-2 text-sm leading-relaxed text-muted-foreground">
                   {e.points.map((p) => (
                     <li key={p}>• {p}</li>
                   ))}
                 </ul>
+                )}
                 <div className="mt-5 flex flex-wrap gap-2">
                   {e.tags.map((t) => (
                     <Tag key={t}>{t}</Tag>
                   ))}
+                </div>
                 </div>
               </article>
               </Reveal>
