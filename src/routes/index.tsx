@@ -12,13 +12,13 @@ const novixImg = novixAsset.url;
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Prakash Chand Meena — Full-Stack Engineer & Open Source Contributor" },
+      { title: "Prakash Meena — Full-Stack Engineer & Open Source Contributor" },
       {
         name: "description",
         content:
           "Portfolio of Prakash Chand Meena: full-stack engineer, GSSoC 2026 top-30 contributor, builder of Verdiqy and Novix UI.",
       },
-      { property: "og:title", content: "Prakash Chand Meena — Portfolio" },
+      { property: "og:title", content: "Prakash Meena — Portfolio" },
       {
         property: "og:description",
         content: "Full-stack engineer, open source contributor and competitive programmer from IIIT Dharwad.",
