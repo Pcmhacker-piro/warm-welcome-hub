@@ -186,7 +186,7 @@ function Index() {
               PM
             </div>
             <div>
-              <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Prakash Meena</h1>
+              <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">Prakash Meena</h1>
               <p className="mt-1 text-muted-foreground">Full-Stack Engineer · Open Source · Competitive Programmer</p>
             </div>
           </div>
