@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { HeroBanner } from "@/components/HeroBanner";
 import { Reveal } from "@/components/Reveal";
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import verdiqyAsset from "@/assets/verdiqy-screenshot.png.asset.json";
@@ -173,6 +174,7 @@ function Index() {
 
       <main className="mx-auto max-w-3xl px-6">
         <section className="animate-float-in py-16">
+          <HeroBanner />
           <div className="mb-8 flex items-center justify-between text-xs text-muted-foreground">
             <span className="flex items-center gap-2">
               <span className="h-2 w-2 animate-pulse rounded-full bg-primary" /> Open to internships

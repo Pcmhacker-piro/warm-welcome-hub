@@ -184,3 +184,77 @@ body {
   to { opacity: 1; transform: none; filter: none; }
 }
 .animate-float-in { animation: float-in 0.8s cubic-bezier(.2,.7,.2,1) both; }
+
+/* ============ Hero banner (3D tilt + aurora + grid + shine) ============ */
+.banner-scene { perspective: 1000px; }
+.banner-card { transform-style: preserve-3d; will-change: transform; }
+
+.banner-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 95% 85% at 50% 45%, black 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 95% 85% at 50% 45%, black 25%, transparent 78%);
+  animation: banner-grid-scroll 14s linear infinite;
+}
+@keyframes banner-grid-scroll {
+  to { background-position: 44px 44px; }
+}
+
+.banner-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(55px);
+  will-change: transform;
+}
+.banner-blob-a {
+  width: 380px; height: 380px; left: -8%; top: -70%;
+  background: radial-gradient(circle at 35% 35%, color-mix(in oklab, var(--primary) 50%, transparent), transparent 65%);
+  animation: banner-drift-a 13s ease-in-out infinite alternate;
+}
+.banner-blob-b {
+  width: 320px; height: 320px; right: -6%; top: -40%;
+  background: radial-gradient(circle at 60% 40%, color-mix(in oklab, var(--chart-2, var(--primary)) 40%, transparent), transparent 65%);
+  animation: banner-drift-b 17s ease-in-out infinite alternate;
+}
+.banner-blob-c {
+  width: 300px; height: 300px; left: 35%; bottom: -70%;
+  background: radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--primary) 35%, transparent), transparent 70%);
+  animation: banner-drift-a 19s ease-in-out infinite alternate-reverse;
+}
+@keyframes banner-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(70px, 40px, 0) scale(1.15); }
+}
+@keyframes banner-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.1); }
+  to   { transform: translate3d(-60px, 30px, 0) scale(0.95); }
+}
+
+.banner-shine {
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    color-mix(in oklab, var(--foreground) 10%, transparent) 46%,
+    color-mix(in oklab, var(--primary) 16%, transparent) 52%,
+    transparent 70%
+  );
+  transform: translateX(-120%) skewX(-12deg);
+  animation: banner-shine 8s ease-in-out infinite;
+}
+@keyframes banner-shine {
+  0%, 55% { transform: translateX(-120%) skewX(-12deg); }
+  85%, 100% { transform: translateX(260%) skewX(-12deg); }
+}
+
+.banner-pill { animation: banner-bob 5s ease-in-out infinite; }
+.banner-chip { animation: banner-bob 6s ease-in-out infinite; }
+@keyframes banner-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-grid, .banner-blob, .banner-shine, .banner-pill, .banner-chip { animation: none; }
+}
